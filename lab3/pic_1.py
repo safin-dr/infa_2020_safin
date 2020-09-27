@@ -60,12 +60,29 @@ def draw_parus(parus_x, parus_y, proportion):
 	aaline(screen, (0, 0, 0), (parus_x + proportion * 14, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y))
 	aaline(screen, (0, 0, 0), (parus_x + proportion * 6, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y + 2 * 10 * proportion))
 	aaline(screen, (0, 0, 0), (parus_x + proportion * 14, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y + 2 * 10 * proportion))
-	
+
+def draw_sin (w_start, w_stop, w_color, y_wave, h_wave):
+	d_wave = (w_stop - w_start)/90
+	for i in range(89):
+		polygon(screen, w_color, [(w_start + d_wave * i, y_wave), (w_start + d_wave * (i + 1), y_wave), (w_start + d_wave * i, y_wave - np.sin(np.pi * i / 90) * h_wave), (w_start + d_wave * (i + 1), y_wave - np.sin(np.pi * (i + 1) / 90) * h_wave)])
+
+def anti_sin (w_start, w_stop, w_color, y_wave, h_wave):
+	d_wave = (w_stop - w_start)/90
+	for i in range(89):
+		polygon(screen, w_color, [(w_start + d_wave * i, y_wave), (w_start + d_wave * (i + 1), y_wave), (w_start + d_wave * i, y_wave + np.sin(np.pi * i / 90) * h_wave), (w_start + d_wave * (i + 1), y_wave + np.sin(np.pi * (i + 1) / 90) * h_wave)])
+
 R = 40
 r = 8
 Sunlights = 60
-	
+
 rect(screen, (0, 0, 255), (0, 0, 600, 260))	
+
+for i in range (7):
+	draw_sin (43 * i * 2, 43 * (i * 2 + 1), (255, 255, 0), 260, 10)
+	anti_sin (43 * (i * 2 + 1), 43 * (i * 2 + 2), (0, 0, 255), 260, 10)
+	
+aaline(screen, (0, 0, 0), (0, 260), (600, 260))
+
 draw_paluba(360, 190, 5)
 draw_paluba(185, 170, 3)
 rect(screen, (0, 0, 255), (0, 0, 600, 170))
@@ -95,3 +112,5 @@ while not finished:
 			finished = True
 
 pygame.quit()
+
+
