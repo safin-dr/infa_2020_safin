@@ -11,65 +11,104 @@ back_color = (255, 255, 0)
 screen.fill(back_color)
 
 def multicloud (main_cloud_x, main_cloud_y, cloud_radius, ro_cloud):
-	circle(screen, (0, 0, 0), (main_cloud_x, main_cloud_y), cloud_radius + 1) #Cloud0
-	circle(screen, (255, 255, 255), (main_cloud_x, main_cloud_y), cloud_radius)
-	circle(screen, (0, 0, 0), (main_cloud_x - ro_cloud * 2, main_cloud_y + ro_cloud * 3), cloud_radius + 1) #Cloud1
-	circle(screen, (255, 255, 255), (main_cloud_x - ro_cloud * 2, main_cloud_y + ro_cloud * 3), cloud_radius)
-	circle(screen, (0, 0, 0), (main_cloud_x + ro_cloud * 3, main_cloud_y), cloud_radius + 1) #Cloud2
-	circle(screen, (255, 255, 255), (main_cloud_x + ro_cloud * 3, main_cloud_y), cloud_radius)
-	circle(screen, (0, 0, 0), (main_cloud_x + ro_cloud * 2, main_cloud_y + ro_cloud * 3), cloud_radius + 1) #Cloud3
-	circle(screen, (255, 255, 255), (main_cloud_x + ro_cloud * 2, main_cloud_y + ro_cloud * 3), cloud_radius)
-	circle(screen, (0, 0, 0), (main_cloud_x + ro_cloud * 6, main_cloud_y + ro_cloud * 3), cloud_radius + 1) #Cloud4
-	circle(screen, (255, 255, 255), (main_cloud_x + ro_cloud * 6, main_cloud_y + ro_cloud * 3), cloud_radius)
-	circle(screen, (0, 0, 0), (main_cloud_x + ro_cloud * 8, main_cloud_y), cloud_radius + 1) #Cloud5
-	circle(screen, (255, 255, 255), (main_cloud_x + ro_cloud * 8, main_cloud_y), cloud_radius)
-	circle(screen, (0, 0, 0), (main_cloud_x + ro_cloud * 10, main_cloud_y + ro_cloud * 3), cloud_radius + 1) #Cloud6
-	circle(screen, (255, 255, 255), (main_cloud_x + ro_cloud * 10, main_cloud_y + ro_cloud * 3), cloud_radius)
-
+    
+    '''
+    Функция рисует облако из шести кругов
+    main_cloud_x - икс-координата первого круга
+    main_cloud_y - игрик-координата первого круга
+    cloud_radius - радиус круга
+    ro_cloud - сдвиг между соседними кругами
+    '''
+    
+    for i in range(4):
+        circle(screen, (0, 0, 0), (main_cloud_x + 4*i * ro_cloud, main_cloud_y), cloud_radius + 1)
+        circle(screen, (255, 255, 255), (main_cloud_x + 4*i * ro_cloud, main_cloud_y), cloud_radius)
+    for i in range(3):
+        circle(screen, (0, 0, 0), (main_cloud_x + 4*i * ro_cloud + ro_cloud, main_cloud_y + 2*ro_cloud), cloud_radius + 1)
+        circle(screen, (255, 255, 255), (main_cloud_x + 4*i * ro_cloud + ro_cloud, main_cloud_y + 2*ro_cloud), cloud_radius)
+ 
 def umbrella(left_upper_x, left_upper_y, dx_umb, h_umb, umb_radius, umb_start, deltha):
-	rect(screen, (210, 110, 34), (left_upper_x, left_upper_y, dx_umb, h_umb))
-	polygon(screen, (249, 96, 75), [(left_upper_x + dx_umb, left_upper_y), (left_upper_x + dx_umb, left_upper_y + umb_start), (left_upper_x + dx_umb + umb_radius, left_upper_y + umb_start)])
-	polygon(screen, (249, 96, 75), [(left_upper_x, left_upper_y), (left_upper_x, left_upper_y + umb_start), (left_upper_x - umb_radius, left_upper_y + umb_start)])
-	rect(screen, (249, 96, 75), (left_upper_x, left_upper_y, dx_umb, umb_start))
-	aaline(screen, (0, 0, 0), (left_upper_x, left_upper_y), (left_upper_x - umb_radius + 1 * deltha, left_upper_y + umb_start))
-	aaline(screen, (0, 0, 0), (left_upper_x, left_upper_y), (left_upper_x - umb_radius + 2 * deltha, left_upper_y + umb_start))
-	aaline(screen, (0, 0, 0), (left_upper_x, left_upper_y), (left_upper_x - umb_radius + 3 * deltha, left_upper_y + umb_start))
-	aaline(screen, (0, 0, 0), (left_upper_x + dx_umb, left_upper_y), (left_upper_x + dx_umb + umb_radius - 3 * deltha, left_upper_y + umb_start))
-	aaline(screen, (0, 0, 0), (left_upper_x + dx_umb, left_upper_y), (left_upper_x + dx_umb + umb_radius - 2 * deltha, left_upper_y + umb_start))
-	aaline(screen, (0, 0, 0), (left_upper_x + dx_umb, left_upper_y), (left_upper_x + dx_umb + umb_radius - 1 * deltha, left_upper_y + umb_start))
-	aaline(screen, (0, 0, 0), (left_upper_x + dx_umb, left_upper_y), (left_upper_x + dx_umb, left_upper_y + umb_start))
-	aaline(screen, (0, 0, 0), (left_upper_x, left_upper_y), (left_upper_x, left_upper_y + umb_start))
-	
+    
+    '''
+    Функция рисует пляжный зонт
+    left_upper_x - икс-координата левого верхнего конца ноги зонта
+    left_upper_y - игрик-координата правого верхнего конца ноги зонта
+    dx_umb - ширина ноги зонта
+    h_umb - высота ноги зонта
+    umb_radius - радиус основания конуса, образованного зонтом
+    deltha - расстояние между полосками на зонте понизу
+    umb_start - высота самого зонта 
+    '''
+    
+    rect(screen, (210, 110, 34), (left_upper_x, left_upper_y, dx_umb, h_umb))
+    polygon(screen, (249, 96, 75), [(left_upper_x + dx_umb, left_upper_y), (left_upper_x + dx_umb, left_upper_y + umb_start), (left_upper_x + dx_umb + umb_radius, left_upper_y + umb_start)])
+    polygon(screen, (249, 96, 75), [(left_upper_x, left_upper_y), (left_upper_x, left_upper_y + umb_start), (left_upper_x - umb_radius, left_upper_y + umb_start)])
+    rect(screen, (249, 96, 75), (left_upper_x, left_upper_y, dx_umb, umb_start))
+    for i in range(4):
+        aaline(screen, (0, 0, 0), (left_upper_x, left_upper_y), (left_upper_x - umb_radius + i * deltha, left_upper_y + umb_start))
+    for i in range(4):
+        aaline(screen, (0, 0, 0), (left_upper_x + dx_umb, left_upper_y), (left_upper_x + dx_umb + umb_radius - i * deltha, left_upper_y + umb_start))
+    aaline(screen, (0, 0, 0), (left_upper_x + dx_umb, left_upper_y), (left_upper_x + dx_umb, left_upper_y + umb_start))
+    aaline(screen, (0, 0, 0), (left_upper_x, left_upper_y), (left_upper_x, left_upper_y + umb_start))
+    
 def draw_paluba(boat_0_x, boat_0_y, proportion):
-	circle(screen, (139, 80, 20), (boat_0_x, boat_0_y), proportion * 7)
-	rect(screen, (0, 0, 255), (boat_0_x - proportion * 7, boat_0_y - proportion * 7, proportion * 7 * 2, proportion * 7))
-	rect(screen, (0, 0, 255), (boat_0_x, boat_0_y, proportion * 7, proportion * 7))
-	rect(screen, (0, 0, 0), (boat_0_x, boat_0_y, proportion * 28 + 2, proportion * 7))
-	rect(screen, (139, 80, 20), (boat_0_x + 1, boat_0_y, proportion * 28, proportion * 7))
-	polygon(screen, (0, 0, 0), [(boat_0_x + proportion * 28 + 2, boat_0_y), (boat_0_x + proportion * 28 + 2, boat_0_y + proportion * 7 - 1), (boat_0_x + proportion * 43, boat_0_y)])
-	polygon(screen, (139, 80, 20), [(boat_0_x + proportion * 28 + 2, boat_0_y), (boat_0_x + proportion * 28 + 2, boat_0_y + proportion * 7 - 1), (boat_0_x + proportion * 43, boat_0_y)])
-	circle(screen, (0, 0, 0), (boat_0_x + proportion * 33, boat_0_y + proportion * 3 - 2), proportion * 2)
-	circle(screen, (255, 255, 255), (boat_0_x + proportion * 33, boat_0_y + proportion * 3 - 2), proportion * 2 - 3)
-	
+    '''
+    Функция рисует корабль без паруса 
+    boat_0_x - икс-координата кормы
+    boat_0_y - игрик-координата кормы
+    proportion - характеристический линейный размер корабля
+    '''
+    circle(screen, (139, 80, 20), (boat_0_x, boat_0_y), proportion * 7)
+    rect(screen, (0, 0, 255), (boat_0_x - proportion * 7, boat_0_y - proportion * 7, proportion * 7 * 2, proportion * 7))
+    rect(screen, (0, 0, 255), (boat_0_x, boat_0_y, proportion * 7, proportion * 7))
+    rect(screen, (0, 0, 0), (boat_0_x, boat_0_y, proportion * 28 + 2, proportion * 7))
+    rect(screen, (139, 80, 20), (boat_0_x + 1, boat_0_y, proportion * 28, proportion * 7))
+    polygon(screen, (0, 0, 0), [(boat_0_x + proportion * 28 + 2, boat_0_y), (boat_0_x + proportion * 28 + 2, boat_0_y + proportion * 7 - 1), (boat_0_x + proportion * 43, boat_0_y)])
+    polygon(screen, (139, 80, 20), [(boat_0_x + proportion * 28 + 2, boat_0_y), (boat_0_x + proportion * 28 + 2, boat_0_y + proportion * 7 - 1), (boat_0_x + proportion * 43, boat_0_y)])
+    circle(screen, (0, 0, 0), (boat_0_x + proportion * 33, boat_0_y + proportion * 3 - 2), proportion * 2)
+    circle(screen, (255, 255, 255), (boat_0_x + proportion * 33, boat_0_y + proportion * 3 - 2), proportion * 2 - 3)
+    
 def draw_parus(parus_x, parus_y, proportion):
-	rect(screen, (0, 0, 0), (parus_x, parus_y, proportion * 2 - 2,  2 * 10 * proportion))
-	polygon(screen, (218, 173, 128), [(parus_x + proportion * 2 - 2, parus_y), (parus_x + proportion * 6, parus_y + proportion * 10), (parus_x + proportion * 14, parus_y + proportion * 10)])
-	polygon(screen, (218, 173, 128), [(parus_x + proportion * 2 - 2,parus_y + proportion * 10 * 2), (parus_x + proportion * 6, parus_y + proportion * 10), (parus_x + proportion * 14, parus_y + proportion * 10)])
-	aaline(screen, (0, 0, 0), (parus_x + proportion * 6, parus_y + proportion *10), (parus_x + proportion * 14, parus_y + proportion * 10))
-	aaline(screen, (0, 0, 0), (parus_x + proportion * 6, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y))
-	aaline(screen, (0, 0, 0), (parus_x + proportion * 14, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y))
-	aaline(screen, (0, 0, 0), (parus_x + proportion * 6, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y + 2 * 10 * proportion))
-	aaline(screen, (0, 0, 0), (parus_x + proportion * 14, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y + 2 * 10 * proportion))
+    '''
+    Функция рисует парус и мачту кораблю
+    parus_x - икс-координата верхнего левого конца мачты
+    parus_y - игрик-координата верхнего правого конца мачты
+    proportion - характеристический линейный размер корабля
+    '''
+    rect(screen, (0, 0, 0), (parus_x, parus_y, proportion * 2 - 2,  2 * 10 * proportion))
+    polygon(screen, (218, 173, 128), [(parus_x + proportion * 2 - 2, parus_y), (parus_x + proportion * 6, parus_y + proportion * 10), (parus_x + proportion * 14, parus_y + proportion * 10)])
+    polygon(screen, (218, 173, 128), [(parus_x + proportion * 2 - 2,parus_y + proportion * 10 * 2), (parus_x + proportion * 6, parus_y + proportion * 10), (parus_x + proportion * 14, parus_y + proportion * 10)])
+    aaline(screen, (0, 0, 0), (parus_x + proportion * 6, parus_y + proportion *10), (parus_x + proportion * 14, parus_y + proportion * 10))
+    aaline(screen, (0, 0, 0), (parus_x + proportion * 6, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y))
+    aaline(screen, (0, 0, 0), (parus_x + proportion * 14, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y))
+    aaline(screen, (0, 0, 0), (parus_x + proportion * 6, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y + 2 * 10 * proportion))
+    aaline(screen, (0, 0, 0), (parus_x + proportion * 14, parus_y + proportion *10), (parus_x + proportion * 2 - 2, parus_y + 2 * 10 * proportion))
 
 def draw_sin (w_start, w_stop, w_color, y_wave, h_wave):
-	d_wave = (w_stop - w_start)/90
-	for i in range(89):
-		polygon(screen, w_color, [(w_start + d_wave * i, y_wave), (w_start + d_wave * (i + 1), y_wave), (w_start + d_wave * i, y_wave - np.sin(np.pi * i / 90) * h_wave), (w_start + d_wave * (i + 1), y_wave - np.sin(np.pi * (i + 1) / 90) * h_wave)])
+    '''
+    Функция рисует округлую выпуклость берега
+    w_start - икс-координата начала первой волна
+    w_stop - икс-координата конца первой волны
+    w_color - цвет берега
+    y_wave - игрик-координата волны, совпадает с линией раздела суши и моря
+    h_wave - высота верхушки
+    '''
+    d_wave = (w_stop - w_start)/90
+    for i in range(89):
+        polygon(screen, w_color, [(w_start + d_wave * i, y_wave), (w_start + d_wave * (i + 1), y_wave), (w_start + d_wave * i, y_wave - np.sin(np.pi * i / 90) * h_wave), (w_start + d_wave * (i + 1), y_wave - np.sin(np.pi * (i + 1) / 90) * h_wave)])
 
 def anti_sin (w_start, w_stop, w_color, y_wave, h_wave):
-	d_wave = (w_stop - w_start)/90
-	for i in range(89):
-		polygon(screen, w_color, [(w_start + d_wave * i, y_wave), (w_start + d_wave * (i + 1), y_wave), (w_start + d_wave * i, y_wave + np.sin(np.pi * i / 90) * h_wave), (w_start + d_wave * (i + 1), y_wave + np.sin(np.pi * (i + 1) / 90) * h_wave)])
+    '''
+    Функция рисует округлую вогнутость берега
+    w_start - икс-координата начала первой волна
+    w_stop - икс-координата конца первой волны
+    w_color - цвет моря
+    y_wave - игрик-координата волны, совпадает с линией раздела суши и моря
+    h_wave - высота низушки
+    '''
+    d_wave = (w_stop - w_start)/90
+    for i in range(89):
+        polygon(screen, w_color, [(w_start + d_wave * i, y_wave), (w_start + d_wave * (i + 1), y_wave), (w_start + d_wave * i, y_wave + np.sin(np.pi * i / 90) * h_wave), (w_start + d_wave * (i + 1), y_wave + np.sin(np.pi * (i + 1) / 90) * h_wave)])
 
 R = 40
 r = 8
